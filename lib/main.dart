@@ -1,6 +1,8 @@
 import 'package:estados/pages/pagina1_page.dart';
 import 'package:estados/pages/pagina2_page.dart';
+import 'package:estados/services/usuario_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,8 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UsuarioService()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
           colorScheme: ColorScheme.light(
             primary: Colors.blue[400]!,
             onPrimary: Colors.white,
@@ -21,18 +27,16 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.blue[400],
             iconTheme: const IconThemeData(color: Colors.white),
             titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-          )
-          // iconTheme: IconThemeData(color: Colors.white),
-          // buttonTheme: ButtonThemeData(buttonColor: Colors.blue[400]),
-          // appBarTheme: AppBarTheme(backgroundColor: )
           ),
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      initialRoute: 'pagina1',
-      routes: {
-        'pagina1': (_) => const Pagina1Page(),
-        'pagina2': (_) => const Pagina2Page(),
-      },
+        ),
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        initialRoute: 'pagina1',
+        routes: {
+          'pagina1': (_) => const Pagina1Page(),
+          'pagina2': (_) => const Pagina2Page(),
+        },
+      ),
     );
   }
 }
