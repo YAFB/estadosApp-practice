@@ -1,10 +1,14 @@
+import 'package:estados/bloc/usuario/usuario_cubit.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pagina2Page extends StatelessWidget {
   const Pagina2Page({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final usuarioCubit = context.read<UsuarioCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -16,9 +20,19 @@ class Pagina2Page extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _botones(() {}, 'Establecer Usuario'),
-            _botones(() {}, 'Cambiar Edad'),
-            _botones(() {}, 'Añadir Profesion'),
+            _botones(() {
+              final newUser = Usuario(
+                  nombre: 'Yardiel',
+                  edad: 26,
+                  profesiones: ['Fullstack developer', 'videojugador']);
+              usuarioCubit.seleccionarUsuario(newUser);
+            }, 'Establecer Usuario'),
+            _botones(() {
+              usuarioCubit.cambiarEdad(27);
+            }, 'Cambiar Edad'),
+            _botones(() {
+              usuarioCubit.agregarProfesion();
+            }, 'Añadir Profesion'),
           ],
         ),
       ),
